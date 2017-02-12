@@ -1,0 +1,39 @@
+---
+title: "Learning RMarkdown"
+author: "Hazel"
+date: "1/22/2017"
+output: 
+  html_document:
+    theme: cerulean
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Celebrity Deaths in 2016
+This is my first R Markdown document and it is about Celebrity Deaths in 2016.
+*sad topic to analyze*
+
+``` {r message = FALSE}
+library(dplyr)
+library(ggplot2)
+library(readxl)
+```
+
+* First read the files you want to analyze
+``` {r results = 'hide', warning = FALSE}
+deaths <- read_excel("/Users/hazelkavili/Desktop/celebrityDeaths/celebrity_deaths_2016.xlsx", sheet = 1, col_names = TRUE)
+```
+
+* Attach variables to call easily
+``` {r results = 'hide'}
+attach(deaths)
+```
+
+* Make a histogram of the ages when they died
+
+```{r fig.height = 4, fig.width = 5, warning = FALSE}
+ggplot(deaths, aes(x = age)) + geom_histogram(binwidth = 10) + xlab("Age of celebrities") +
+  ylab("Frequency") + ggtitle("The age of celebrities when they died") + theme_bw()
+```
